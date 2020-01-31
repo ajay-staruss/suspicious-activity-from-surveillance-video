@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import pyrebase
-from django.contrib import auth
+from .models import Contactus
 
 firebaseConfig = {
     'apiKey': "AIzaSyBc9d3c5edVlscSWzrTnMW54gI6qlI_oYA",
@@ -18,7 +18,16 @@ authe = firebase.auth()
 
 
 def index(request):
-    return render(request, 'index.html')
+    if request.method == 'POST':
+        your_name = request.POST['your_name']
+        your_email = request.POST['your_email']
+        your_message = request.POST['your_message']
+
+        contact = Contactus(your_name= your_name, your_email=your_email, your_message= your_message)
+        contact.save()
+        return render(request,'index.html', {'message':'Your response has been recorded'})
+    else:
+        return render(request, 'index.html')
 
 
 def login(request):
@@ -57,7 +66,6 @@ def profile(request):
 
 
 def history(request):
-
     try:
         idtoken = request.session['uid']
         a = authe.get_account_info(idtoken)
