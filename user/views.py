@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 import pyrebase
 from .models import Contactus
+import requests
+import json
+
+url = 'http://127.0.0.1:5000/files'
 
 firebaseConfig = {
     'apiKey': "AIzaSyBc9d3c5edVlscSWzrTnMW54gI6qlI_oYA",
@@ -38,7 +42,7 @@ def login(request):
             user = authe.sign_in_with_email_and_password(email, password)
             session_id = user['idToken']
             request.session['uid'] = str(session_id)
-            return render(request, 'profile.html', {'e': email})
+            return redirect('profile')
 
 
         except:
@@ -58,11 +62,17 @@ def profile(request):
         idtoken = request.session['uid']
         a = authe.get_account_info(idtoken)
         b = a.get('users')
+        print(b)
         print(b[0].get('email'))
-        return render(request, 'profile.html')
+        print(b[0].get('localId'))
+        response = requests.get(url)
+        json_response = response.json()
+        print(json_response)
+        return render(request, 'profile.html',{'gif':json_response,'loacation':'ABESIT'})
     except KeyError:
         message = 'you must login first'
         return render(request,'login.html',{'message':message})
+
 
 
 def history(request):
@@ -81,3 +91,4 @@ def signout(request):
     except KeyError:
         pass
     return redirect('login')
+
