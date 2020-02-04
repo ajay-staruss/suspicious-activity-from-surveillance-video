@@ -68,7 +68,8 @@ def profile(request):
         response = requests.get(url)
         json_response = response.json()
         print(json_response)
-        return render(request, 'profile.html',{'gif':json_response,'loacation':'ABESIT'})
+        l = len(json_response)
+        return render(request, 'profile.html',{'gif':json_response,'loacation':'ABESIT','length':l})
     except KeyError:
         message = 'you must login first'
         return render(request,'login.html',{'message':message})
