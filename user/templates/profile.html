@@ -87,7 +87,6 @@
         <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th scope="col">S.No.</th>
       <th scope="col">Location</th>
       <th scope="col">Time</th>
       <th scope="col">Details</th>
@@ -95,18 +94,19 @@
   </thead>
   <tbody>
 
-    {% for key in gif %}
+    {% for key in gif %}{% for t in time %}
+        {% if forloop.counter == forloop.parentloop.counter %}
 
     <tr>
-      <th scope="row">1</th>
+
       <td>{{ loacation }}</td>
-      <td>time</td>
+      <td>{{ t }}</td>
         <td><a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample{{ key }}" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
             <i class="material-icons" >open_in_new</i>
             </a></td>
 
 <!-- /////////////////////////////Modal////////////////////////////
-<div class="modal fade" id="gifpopup{{ key }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="gifpopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -116,7 +116,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="http://127.0.0.1:5000/files/{{ key }}">
+        <img src="http://127.0.0.1:5000/files/">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -132,13 +132,13 @@
         <div class="col-md-7">
       <div class="collapse multi-collapse" id="multiCollapseExample{{ key }}">
       <div class="card card-body">
-        <img src="http://127.0.0.1:5000/files/{{ key }}">
+        <img src="{{ key }}">
       </div>
     </div>
   </div>
         </center>
-
-  {% endfor %}
+{% endif %}
+{% endfor %}  {% endfor %}
   </tbody>
 </table>
       </div>
@@ -151,7 +151,7 @@
         <ul>
           <li>
             <a href="#">
-              Archit Jain
+              StarBugs
             </a>
           </li>
           <li>
