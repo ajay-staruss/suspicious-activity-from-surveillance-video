@@ -31,7 +31,15 @@ for doc in doc_ref:
 url = 'http://127.0.0.1:5000/files'
 
 firebaseConfig = {
-    
+    'apiKey': "AIzaSyBc9d3c5edVlscSWzrTnMW54gI6qlI_oYA",
+    'authDomain': "star-bugs.firebaseapp.com",
+    'databaseURL': "https://star-bugs.firebaseio.com",
+    'projectId': "star-bugs",
+    'storageBucket': "star-bugs.appspot.com",
+    'messagingSenderId': "450899693729",
+    'appId': "1:450899693729:web:24eeb110b85b1ceaede0e0",
+    'measurementId': "G-NE8B9E9EDC"
+}
 firebase = pyrebase.initialize_app(firebaseConfig)
 
 authe = firebase.auth()
